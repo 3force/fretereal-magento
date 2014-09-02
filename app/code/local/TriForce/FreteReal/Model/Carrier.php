@@ -75,7 +75,7 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
             if (isset($_SESSION['fretereal']) && $_SESSION['fretereal']['hash'] == $hash) {
                 $ret = $_SESSION['fretereal']['calculo'];
             } else {
-                $caminhoUrl = "http://fretereal.com/oauth/";
+                $caminhoUrl = "https://fretereal.com/oauth/";
                 $caminhoApi = $caminhoUrl . "action/api";
                 $caminhoToken = $caminhoUrl . "action/request_token";
 
