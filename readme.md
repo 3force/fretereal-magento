@@ -6,6 +6,7 @@ Este módulo contempla a integração completa do Frete Real para lojas que util
 * Integrado para declarar os valores (caso sua empresa utilize fretes aéreos, com seguro, etc..)
 * Integrado para solicitar a cotação de: Aviso de Recebimento e Mão Própria
 * Exibe informações recebidas pelos correios, ex: Áreas de Risco
+* Integrado para calcular em apenas 1 request todos os tipos de fretes disponíveis
 
 ##Instalação
 Para instalar este módulo, efetue seu cadastro no [Frete Real](https://fretereal.com) para obter suas credenciais para utilizar a API e em seguida efeute o seguinte procedimento:
