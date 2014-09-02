@@ -8,7 +8,7 @@ Este módulo contempla a integração completa do Frete Real para lojas que util
 * Exibe informações recebidas pelos correios, ex: Áreas de Risco
 
 ##Instalação
-Para instalar este módulo, efetue seu cadastro no [*Frete Real](https://fretereal.com) para obter suas credenciais para utilizar a API e em seguida efeute o seguinte procedimento:
+Para instalar este módulo, efetue seu cadastro no [Frete Real](https://fretereal.com) para obter suas credenciais para utilizar a API e em seguida efeute o seguinte procedimento:
 
 1. Baixe este arquivo .zip
 2. Envie para seu servidor por FTP a pasta "app"
@@ -20,4 +20,5 @@ Para instalar este módulo, efetue seu cadastro no [*Frete Real](https://fretere
 
 ##Entendendo como funciona
 Quando um cliente adiciona um produto no carrinho, e informa seu "ZIP CODE" (CEP), o sistema verifica as configurações e envia para a API as informações do carrinho.
+
 Quando o Frete Real retorna as informações, armazenamos na $_SESSION uma identificação para este frete e também os valores, assim você não consome cálculos repetidos enquanto o cliente não efetua a compra.
