@@ -1,12 +1,4 @@
 <?php
-/**
- * @category   Storm
- * @package    Storm_Correios
- * @copyright  Copyright (c) 2013 Willian Cordeiro de Souza
- * @author     Willian Cordeiro de Souza <williancordeirodesouza@gmail.com> 
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
 $attributeGroup = 'Dimensions';
 
 $attributes = array(
