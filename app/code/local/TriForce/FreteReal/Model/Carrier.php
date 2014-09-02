@@ -12,6 +12,9 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
             // Dados de acesso a API do Frete Real
             $client_id = Mage::getStoreConfig('carriers/triforce_fretereal/client_id');
             $client_secret = Mage::getStoreConfig('carriers/triforce_fretereal/client_secret');
+            $mao_propria = Mage::getStoreConfig('carriers/triforce_fretereal/mao_propria');
+            $aviso_recebimento = Mage::getStoreConfig('carriers/triforce_fretereal/aviso_recebimento');
+            $valor_declarado = Mage::getStoreConfig('carriers/triforce_fretereal/valor_declarado');
 
             if ($client_id == "" || $client_secret == "") {
                 return false;
@@ -33,14 +36,14 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
                     'client_secret' => $client_secret,
                     'cep' => $zip,
                     'forma_envio' => $freteCod,
-                    'mao_propria' => "N",
-                    'aviso_recebimento' => "N",
+                    'mao_propria' => ($mao_propria ? "S" : "N"),
+                    'aviso_recebimento' => ($aviso_recebimento ? "S" : "N"),
                     'produtos' => array()
                 );
 
                 $hash .= $zip;
 
-                foreach ($cart->getAllVisibleItems() as $item) {
+                foreach ($cart->getAllVisibleItems() as $key => $item) {
                     // Dados dos produtos dentro do carrinho
                     $product_sku = $item->getProduct()->getSku();
                     $product_name = $item->getProduct()->getName();
@@ -63,7 +66,11 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
                         'peso' => $product_weight,
                         'qtd' => $product_qtd
                     );
-                }  
+
+                    if ($valor_declarado) {
+                        $dadosParaAPI['produtos'][$key]['valor'] = $product_price;
+                    }
+                }
 
                 if (isset($_SESSION['fretereal']) && $_SESSION['fretereal']['hash'][$freteCod] == $hash) {
                     $ret = $_SESSION['fretereal'][$freteCod];
@@ -93,7 +100,6 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
                     curl_setopt($curl2, CURLOPT_POSTFIELDS, http_build_query($dadosParaAPI));
                     curl_setopt($curl2, CURLOPT_RETURNTRANSFER, 1);
                     $ret = curl_exec($curl2);
-                    // header('Content-Type: application/json');
                     $ret = json_decode($ret, true);
 
                     $_SESSION['fretereal']['hash'][$freteCod] = $hash;
