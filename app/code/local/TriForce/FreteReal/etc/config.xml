@@ -12,13 +12,27 @@
             </triforce_fretereal>
         </models>
         <resources>
-        	<triforce_fretereal_setup>
-        		<setup>
-        			<module>TriForce_FreteReal</module>
-        			<class>TriForce_FreteReal_Model_Resource_Setup</class>
-        		</setup>
-        	</triforce_fretereal_setup>
+            <triforce_fretereal_setup>
+                <setup>
+                    <module>TriForce_FreteReal</module>
+                    <class>TriForce_FreteReal_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </triforce_fretereal_setup>
         </resources>
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <triforce_fretereal_observer>
+                        <type>singleton</type>
+                        <class>TriForce_FreteReal_Model_Observer</class>
+                        <method>salvarDadosFrete</method>
+                    </triforce_fretereal_observer>
+                </observers>
+            </sales_order_place_after>
+        </events>
     </global>
     <default>
         <carriers>
@@ -31,4 +45,5 @@
             </triforce_fretereal>
         </carriers>
     </default>
+
 </config>

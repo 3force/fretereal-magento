@@ -104,6 +104,7 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
 
                 $_SESSION['fretereal']['hash'] = $hash;
                 $_SESSION['fretereal']['calculo'] = $ret;
+                $_SESSION['fretereal']['calculo']['token'] = $access_key;
             }
 
             if ($ret['status'] == 1) {
