@@ -23,3 +23,5 @@ Para instalar este módulo, cadastre-se no [Frete Real](https://fretereal.com) p
 Quando um cliente adiciona um produto no carrinho, e informa seu "ZIP CODE" (CEP), o sistema verifica as configurações e envia para a API as informações do carrinho.
 
 Quando o Frete Real retorna as informações, armazenamos na $_SESSION uma identificação para este frete, e também os valores; assim você não consome cálculos repetidos enquanto o cliente não efetua a compra.
+
+Os dados dos cálculos, como por ex: Caixas utilizadas, os produtos dentro de cada caixa ficam armazenados nos "Comentários da compra"
