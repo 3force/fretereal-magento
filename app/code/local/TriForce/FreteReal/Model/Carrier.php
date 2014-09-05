@@ -108,7 +108,12 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
             }
 
             if ($ret['status'] == 1) {
+                $alertas = array();
                 foreach ($ret['fretes']['correios'] as $key => $value) {
+                    if (isset($value['alerta']) && !in_array($value['alerta'], $alertas) && $value['alerta'] != "") {
+                        Mage::getSingleton('core/session')->addNotice($value['alerta']);
+                        $alertas[] = $value['alerta'];
+                    }
                     $method = Mage::getModel('shipping/rate_result_method');
                     $method->setCarrier("triforce_fretereal")
                                 ->setCarrierTitle(Mage::getStoreConfig("carrier/triforce_fretereal/title"))
