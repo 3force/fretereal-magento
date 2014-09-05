@@ -4,12 +4,12 @@ class TriForce_FreteReal_Model_Observer {
 		$order = $observer->getEvent()->getOrder();
 		$orderId = $order->getId();
 		$resource = Mage::getSingleton('core/resource');
-        $connect = $resource->getConnection("core_write");
+            $connect = $resource->getConnection("core_write");
 
 		if (isset($_SESSION['fretereal']) && isset($_SESSION['fretereal']['calculo'])) {
             $calculo = $_SESSION['fretereal']['calculo'];
             $token = $calculo['token'];
-            $caixas = "";
+            $caixas = "Token do cálculo: " . $token . "<br/>";
 
             foreach ($calculo['caixas'] as $key => $value) {
             	$caixas .= "Caixa #" . ($key + 1) . ":<br/>";
@@ -34,6 +34,11 @@ class TriForce_FreteReal_Model_Observer {
             // Atualiza a compra
             $query = "UPDATE sales_flat_order SET fretereal_token = '".$token."', fretereal_caixas = '".$caixas."' WHERE entity_id = '".(int)$orderId."';";
             $connect->query($query);
+
+            // Salva o comentário na compra:
+            $order->addStatusHistoryComment($caixas)
+                  ->setIsVisibleOnFront(false)
+                  ->setIsCustomerNotified(false);
 	    }
 
 		return true;
