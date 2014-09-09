@@ -10,7 +10,7 @@ class TriForce_FreteReal_Model_Source_Methods {
             	array(
 	            	'label' => "Frete Real",
 	            	'value' => array(
-	            		array('value' => '0', 'label' => "Comple os dados de acesso da API")
+	            		array('value' => '0', 'label' => "Complete os dados de acesso da API")
 	        		)
         		)
         	);
