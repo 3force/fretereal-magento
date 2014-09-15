@@ -1,4 +1,4 @@
-#Frete Real - Plugin para Magento - v.0.0.1
+#Frete Real - Plugin para Magento - v.0.0.2
 Este módulo contempla a integração completa do Frete Real para lojas que utilizam a plataforma Magento.
 
 ##Funcionalidades

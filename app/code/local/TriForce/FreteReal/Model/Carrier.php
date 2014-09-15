@@ -110,18 +110,20 @@ class TriForce_FreteReal_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstr
             if ($ret['status'] == 1) {
                 $alertas = array();
                 foreach ($ret['fretes']['correios'] as $key => $value) {
-                    if (isset($value['alerta']) && !in_array($value['alerta'], $alertas) && $value['alerta'] != "") {
-                        Mage::getSingleton('core/session')->addNotice($value['alerta']);
-                        $alertas[] = $value['alerta'];
+                    if ($value['status'] == 1) {
+                        if (isset($value['alerta']) && !in_array($value['alerta'], $alertas) && $value['alerta'] != "") {
+                            Mage::getSingleton('core/session')->addNotice($value['alerta']);
+                            $alertas[] = $value['alerta'];
+                        }
+                        $method = Mage::getModel('shipping/rate_result_method');
+                        $method->setCarrier("triforce_fretereal")
+                                    ->setCarrierTitle(Mage::getStoreConfig("carrier/triforce_fretereal/title"))
+                                    ->setMethod($value['tipo_frete'])
+                                    ->setMethodTitle(self::getTitulo($value['tipo_frete']) . " (Prazo: ".($extra_days > 0 ? ($value['prazo'] + $extra_days) : $value['prazo'])." dias)")
+                                    ->setCost($value['valor'])
+                                    ->setPrice($value['valor']);
+                        $result->append($method);
                     }
-                    $method = Mage::getModel('shipping/rate_result_method');
-                    $method->setCarrier("triforce_fretereal")
-                                ->setCarrierTitle(Mage::getStoreConfig("carrier/triforce_fretereal/title"))
-                                ->setMethod($value['tipo_frete'])
-                                ->setMethodTitle(self::getTitulo($value['tipo_frete']) . " (Prazo: ".($extra_days > 0 ? ($value['prazo'] + $extra_days) : $value['prazo'])." dias)")
-                                ->setCost($value['valor'])
-                                ->setPrice($value['valor']);
-                    $result->append($method);
                 }
             }
         } catch (Exception $e) {
